@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+          http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+    <filter>
+        <filter-name>whale</filter-name>
+        <filter-class>org.nutz.mvc.WhaleFilter</filter-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>
+                enc.input=utf-8
+                enc.output=utf-8
+            </param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>whale</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>nutz</filter-name>
+            <filter-class>org.nutz.mvc.NutFilter</filter-class>
+        <init-param>
+            <param-name>modules</param-name>
+            <param-value>cn.jt.module.MainModule</param-value>
+        </init-param>
+        <init-param>
+            <param-name>ignore</param-name>
+            <param-value>^(.+[.])(jsp|png|gif|jpg|js|css|jspx|jpeg|swf|ico|map|html)$</param-value>
+        </init-param>
+        <init-param>
+            <param-name>exclusions</param-name>
+            <!-- *.XXX 忽略后缀 -->
+            <!-- /XX/* 忽略前缀 -->
+            <!-- /cc   忽略固定路径 -->
+            <!-- 下面的例子忽略了html和ftl后缀, 忽略了/rs/和/druid/前缀,和忽略了固定路径/abc/notaction -->
+            <param-value>*.html,*.ftl,/rs/*,/druid/*,/abc/notaction</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>nutz</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/jsp/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>500</error-code>
+        <location>/WEB-INF/jsp/error.jsp</location>
+    </error-page>
+
+    <session-config>
+        <session-timeout>120</session-timeout>
+    </session-config>
+</web-app>
