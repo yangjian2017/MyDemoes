@@ -4,6 +4,7 @@ import cn.jt.module.config.MyMessageLoader;
 import cn.jt.module.config.MySetup;
 import org.nutz.mvc.Mvcs;
 import org.nutz.mvc.annotation.*;
+import org.nutz.mvc.filter.CrossOriginFilter;
 
 
 /**
@@ -21,6 +22,7 @@ import org.nutz.mvc.annotation.*;
         "cn.jt.module",
         "cn.jt.service"})
 @SetupBy(value = MySetup.class)
+@Filters(@By(type=CrossOriginFilter.class))
 public class MainModule {
 
     /**
