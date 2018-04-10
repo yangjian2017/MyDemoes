@@ -1,8 +1,10 @@
 package cn.jt.module.config;
 
 import cn.jt.bean.User;
+import cn.jt.module.config.ig.MySuperIdGenerator;
 import org.nutz.dao.Dao;
 import org.nutz.dao.util.Daos;
+import org.nutz.el.opt.custom.CustomMake;
 import org.nutz.ioc.Ioc;
 import org.nutz.lang.random.R;
 import org.nutz.log.Log;
@@ -26,12 +28,12 @@ public class MySetup implements Setup {
     @Override
     public void init(NutConfig nutConfig) {
         log.debug("正在初始化···");
-        // CustomMake.me().register("ig", ioc.get(RedisIdGenerator.class));
+
         // UTF8JsonView.CT = "text/plain";
 
         Ioc ioc = nutConfig.getIoc();
         Dao dao = ioc.get(Dao.class);
-
+        CustomMake.me().register("ig", ioc.get(MySuperIdGenerator.class));
         log.debug("正在自动建表···");
         // 检查数据库，如果没有表则根据已有的实体类自动建表
         Daos.createTablesInPackage(dao, "cn.jt.bean", true);
