@@ -2,11 +2,13 @@ package cn.jt.bean;
 
 import org.nutz.dao.entity.annotation.*;
 
+import java.sql.Timestamp;
+
 /**
  * 一张记录表
  * @author yangjian
  */
-@Table("user")
+@Table("record")
 public class Record {
 
     @Name
@@ -25,15 +27,21 @@ public class Record {
     private String images;
 
     @Column
-    @ColDefine(width = 13,type = ColType.INT)
-    @Comment("创建时间，存的是毫秒数")
-    private Long createTime;
+    @ColDefine(type = ColType.DATETIME)
+    @Comment("创建时间，存的是时间戳")
+    private Timestamp createTime;
 
     public Record(){}
 
     public Record(String text, String images){
         this.text = text;
         this.images = images;
+    }
+
+    public Record(String text, String images,Timestamp createTime){
+        this.text = text;
+        this.images = images;
+        this.createTime = createTime;
     }
 
     public String getUuid() {
@@ -60,11 +68,11 @@ public class Record {
         this.images = images;
     }
 
-    public Long getCreateTime() {
+    public Timestamp getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(long createTime) {
+    public void setCreateTime(Timestamp createTime) {
         this.createTime = createTime;
     }
 

@@ -5,6 +5,9 @@ import org.nutz.dao.Cnd;
 import org.nutz.ioc.loader.annotation.IocBean;
 import org.nutz.service.NameEntityService;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  * 处理user相关的数据逻辑
  *
@@ -18,8 +21,9 @@ public class RecordService extends NameEntityService<Record> {
      *
      * @return
      */
-    public void save(Record record) {
-        record.setCreateTime(System.currentTimeMillis());
+    public void save(String text,String images) {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        Record record = new Record(text, images,timestamp);
         _insert(record);
     }
 

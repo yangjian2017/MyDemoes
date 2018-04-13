@@ -32,6 +32,10 @@ public class CodeTest {
         StringGenerator sg = new StringGenerator(6, 6);
         System.out.println("sg = " + sg.next());
 
+        System.out.println("R.captchaNumber(6) = " + R.captchaNumber(6));
+        System.out.println("R.captchaNumber(6) = " + R.random(6,6));
+        System.out.println("R.captchaNumber(6) = " + R.sg(6));
+
         Segment seg = new CharSegment("XXXXXXXX ${A}  XXXXXX ${B}  XXXXXX ${A} XXXXX");
         seg.set("A", "TxtA").set("B", "TxtB");
         System.out.println(seg.toString());

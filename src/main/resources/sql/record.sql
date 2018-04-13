@@ -5,7 +5,7 @@ CREATE TABLE `record` (
   COMMENT '文字',
   `images`     TEXT        NULL
   COMMENT '图片，存的url，多个用","分隔,最多九张',
-  `createTime` TINYINT(13) NULL
-  COMMENT '创建时间，存的是毫秒数',
+  `createTime` datetime NULL
+  COMMENT '创建时间',
   PRIMARY KEY (`uuid`)
 );

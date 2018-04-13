@@ -16,8 +16,7 @@ import org.nutz.mvc.filter.CrossOriginFilter;
 @Localization(value = "local/", defaultLocalizationKey = "zh_CN", type = MyMessageLoader.class)
 @Modules
 @IocBy(args = {"*js",
-        "ioc/dao.js",
-        "ioc/service.js",
+        "ioc/",
         "*anno",
         "cn.jt.module",
         "cn.jt.service"})
@@ -36,5 +35,15 @@ public class MainModule {
         Mvcs.setLocalizationKey(lang);
     }
 
+    /**
+     * 调整到记录查询页
+     *
+     * @return
+     */
+    @At("/index")
+    @Ok("jsp:/index")
+    public void index() {
+        // 返回首页
+    }
 }
 

@@ -1,18 +1,18 @@
 package cn.jt.module;
 
 import cn.jt.bean.Record;
-import cn.jt.bean.Res;
+import cn.jt.bean.base.Res;
 import cn.jt.service.RecordService;
-import cn.jt.service.UploadService;
 import org.apache.log4j.Logger;
 import org.nutz.ioc.loader.annotation.Inject;
 import org.nutz.ioc.loader.annotation.IocBean;
-import org.nutz.mvc.annotation.AdaptBy;
 import org.nutz.mvc.annotation.At;
 import org.nutz.mvc.annotation.Ok;
+import org.nutz.mvc.annotation.POST;
 import org.nutz.mvc.annotation.Param;
-import org.nutz.mvc.upload.TempFile;
-import org.nutz.mvc.upload.UploadAdaptor;
+
+import java.sql.Timestamp;
+
 
 /**
  * @author yangjian
@@ -21,11 +21,9 @@ import org.nutz.mvc.upload.UploadAdaptor;
 @IocBean
 public class RecordModule {
     Logger log = Logger.getRootLogger();
-    @Inject
-    RecordService recordService;
 
     @Inject
-    UploadService uploadService;
+    RecordService recordService;
 
     /**
      * 保存记录
@@ -33,10 +31,17 @@ public class RecordModule {
      * @param text   文本
      * @param images 图片，最多九张，多个用“,"分隔
      */
-    @At("/save")
+    @At(value = "/save")
+    @POST
     @Ok("json")
-    public void save(@Param("text") String text, @Param("images") String images) {
-        recordService.save(new Record(text, images));
+    public String save(@Param("text") String text, @Param("images") String images) {
+        try {
+            recordService.save(text,images);
+            return Res.SUCCESS_MSG;
+        }catch (Exception e){
+            e.getMessage();
+            return Res.ERROR_MSG;
+        }
     }
 
     /**
@@ -45,7 +50,7 @@ public class RecordModule {
      * @return
      */
     @At("/getLastRecord")
-    @Ok("json")
+    @Ok("json:full")
     public Res getLastRecord() {
         try {
             Record record = recordService.getLastRecord();
@@ -57,17 +62,21 @@ public class RecordModule {
         }
     }
 
-    @At("/uploadImage")
-    @Ok("json")
-    @AdaptBy(type = UploadAdaptor.class, args = {"ioc:myUpload"})
-    public Res uploadImage(@Param("image") TempFile tf) {
-        return uploadService.uploadFile(tf);
-    }
 
-    @At("/uploadImages")
-    @Ok("json")
-    @AdaptBy(type = UploadAdaptor.class, args = {"ioc:myUpload"})
-    public Res uploadImages(@Param("img") TempFile[] tfs) {
-        return uploadService.uploadFile(tfs);
+    /**
+     * 调整到记录查询页
+     *
+     * @return
+     */
+    @At("")
+    @Ok("jsp:jsp.record")
+    public Record toPage() {
+        try {
+            return recordService.getLastRecord();
+        } catch (Exception e) {
+            e.printStackTrace();
+            log.info("获取最后一条记录发送异常：" + e.getMessage());
+            return null;
+        }
     }
 }

@@ -1,6 +1,6 @@
 var ioc = {
-    utils : {
-        type : 'com.abc.myapp.MyUtils',
+    myUtil : {
+        type : 'cn.jt.util.base.MyUtil',
         fields : {
             sc : {app:'$servlet'}   // 将 ServletContext 对象注入 MyUtils
         }
@@ -8,7 +8,7 @@ var ioc = {
     tmpFilePool: {
         type: 'org.nutz.filepool.NutFilePool',
         // 临时文件最大个数为 1000 个
-        args: [{java:'$utils.getPath("/WEB-INF/tmp")'}, 1000]
+        args: [{java:'$myUtil.getPath("/WEB-INF/tmp")'}, 1000]
     },
     uploadFileContext: {
         type: 'org.nutz.mvc.upload.UploadingContext',

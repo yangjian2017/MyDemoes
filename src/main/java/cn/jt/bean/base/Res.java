@@ -1,4 +1,4 @@
-package cn.jt.bean;
+package cn.jt.bean.base;
 
 /**
  * 对json返回值的封装
