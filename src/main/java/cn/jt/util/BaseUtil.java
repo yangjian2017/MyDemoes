@@ -27,7 +27,25 @@ public abstract class BaseUtil {
         return "%" + number + "%";
     }
 
-    public static Cnd getCnd(String key,String op,Object val) {
-        return Cnd.NEW().and(key,op,val);
+    public static Cnd getCndEQ(String key,Object val) {
+        return Cnd.NEW().and(key,EQ,val);
+    }
+    public static Cnd getCndNEQ(String key,Object val) {
+        return Cnd.NEW().and(key,NEQ,val);
+    }
+    public static Cnd getCndLT(String key,Object val) {
+        return Cnd.NEW().and(key,LT,val);
+    }
+    public static Cnd getCndLTE(String key,Object val) {
+        return Cnd.NEW().and(key,LTE,val);
+    }
+    public static Cnd getCndGT(String key,Object val) {
+        return Cnd.NEW().and(key,GT,val);
+    }
+    public static Cnd getCndGTE(String key,Object val) {
+        return Cnd.NEW().and(key,GTE,val);
+    }
+    public static Cnd getCndLIKE(String key,Object val) {
+        return Cnd.NEW().and(key,LIKE,val);
     }
 }

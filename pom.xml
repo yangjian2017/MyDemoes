@@ -28,12 +28,6 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.44</version>
         </dependency>
-        <!-- oracle驱动 -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc8</artifactId>
-            <version>12.2.0</version>
-        </dependency>
         <!-- Druid连接池 -->
         <dependency>
             <groupId>com.alibaba</groupId>
